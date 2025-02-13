@@ -1,6 +1,6 @@
 # Main script to execute the project
 import logging
-
+import os
 from dotenv import find_dotenv, load_dotenv
 
 from utils import setup_logging

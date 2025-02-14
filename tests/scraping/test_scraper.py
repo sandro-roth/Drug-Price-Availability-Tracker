@@ -16,6 +16,9 @@ class TestScraper(unittest.TestCase):
     def test_instance_with_parameter(self):
         scraper = Scraper(header=headers)
 
+# ----- Checking pre-set drugs on drugshortage.ch if they are present or not
+
+
 # ----- Testing the second part of the Scrapper Class to see if the information from the Zurose webpage is downloaded
     def test_response_status_code_zurose(self):
         scraper = Scraper(header=headers)

@@ -1,9 +1,13 @@
 # Main scraping script
 import requests
 from bs4 import BeautifulSoup
+import os
 
 
 class Scraper:
+    parent_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    data_dir = os.path.join(parent_dir, 'data', 'raw')
+
     def __init__(self, header):
         self.header = header
 
@@ -23,7 +27,17 @@ class Scraper:
         if not file_url.startswith('http'):
             file_url = requests.compat.urljoin(url, file_url)
 
-        return file_url
+        # Download the file
+        file_response = requests.get(file_url)
+
+        # Save the file
+        file = 'non_deliverable_items_list.xlsx'
+        xlsx_filename = os.path.join(self.data_dir, file)
+        with open(xlsx_filename, 'wb') as file:
+            for chunk in file_response.iter_content(chunk_size=128):
+                file.write(chunk)
+
+        return file_response
 
 
 

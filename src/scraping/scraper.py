@@ -15,7 +15,7 @@ class Scraper:
         self.header = header
 
     def check_response(self, url):
-        self.resp = requests.get(url=url, headers=self.header, timeout=0.1)
+        self.resp = requests.get(url=url, headers=self.header, timeout=1)
         return self.resp.status_code
 
     def load_yaml(self):

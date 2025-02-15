@@ -3,10 +3,13 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
+from utils import YamlHandler
+from src.scraping.config import headers, drug_url
 
 class Scraper:
     parent_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
     data_dir = os.path.join(parent_dir, 'data', 'raw')
+    yml_path = os.path.join(parent_dir, 'config', 'settings.yml')
 
     def __init__(self, header):
         self.header = header
@@ -14,6 +17,19 @@ class Scraper:
     def check_response(self, url):
         self.resp = requests.get(url=url, headers=self.header)
         return self.resp.status_code
+
+    def load_yaml(self):
+        yml = YamlHandler()
+        parameter = yml.loader(self.yml_path)
+        return parameter
+
+    def connect_shortage(self, url):
+        assert self.check_response(url) == 200
+        assert isinstance(self.load_yaml()['druglist'], list)
+        return self.load_yaml()['druglist']
+
+    def parse_web(self, url):
+        pass
 
     def save_file(self, url, web_button):
         """Get the .xlsx file from zu rose homepage"""
@@ -41,6 +57,11 @@ class Scraper:
 
 
 
+
+
 # Check the swica drug directory for information on manufacturers and prices
 
-# Check if there are any shortages known on drugshortage.ch
+
+if __name__ == '__main__':
+    scrap = Scraper(header=headers)
+    scrap.parse_shortage(drug_url)

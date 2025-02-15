@@ -15,7 +15,7 @@ class Scraper:
         self.header = header
 
     def check_response(self, url):
-        self.resp = requests.get(url=url, headers=self.header)
+        self.resp = requests.get(url=url, headers=self.header, timeout=0.1)
         return self.resp.status_code
 
     def load_yaml(self):
@@ -28,7 +28,15 @@ class Scraper:
         assert isinstance(self.load_yaml()['druglist'], list)
         return self.load_yaml()['druglist']
 
-    def parse_web(self, url):
+    def parse_shortage(self, url):
+        # include first part in try statement till for loop
+        # druglist = self.connect_shortage(url)
+        # soup = BeatuifulSoup(self.resp.text, 'html.parser')
+        # for loop through list of drugs
+        # find drugname in Bezeichnung # use if else statement to check if present (not sure
+        # get first file from the link and save it in raw_data
+        # name it with bezeichnung.csv
+        # do the last two for all
         pass
 
     def save_file(self, url, web_button):

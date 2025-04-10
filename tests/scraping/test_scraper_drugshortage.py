@@ -20,6 +20,10 @@ class TestScrapper(unittest.TestCase):
         list_of_drugs = self.scraper.connect_shortage(drug_url)
         self.assertTrue(isinstance(list_of_drugs, list))
 
+    def test_parse_druglist(self):
+        print('testing')
+        shortage = self.scraper.parse_shortage(drug_url)
+
 
 if __name__ == '__main__':
     unittest.main()

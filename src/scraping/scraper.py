@@ -29,6 +29,16 @@ class Scraper:
         return self.load_yaml()['druglist']
 
     def parse_shortage(self, url):
+        try:
+            list_of_drugs = self.connect_shortage(url)
+            soup = BeautifulSoup(self.resp.text, 'html.parser')
+            with soup.find()
+            # for drug in list_of_drugs:
+            #     print(drug.upper())
+        except AssertionError:
+            print('Connection failed or no druglist available')
+
+        return list_of_drugs
         # include first part in try statement till for loop
         # druglist = self.connect_shortage(url)
         # soup = BeatuifulSoup(self.resp.text, 'html.parser')
@@ -37,7 +47,6 @@ class Scraper:
         # get first file from the link and save it in raw_data
         # name it with bezeichnung.csv
         # do the last two for all
-        pass
 
     def save_file(self, url, web_button):
         """Get the .xlsx file from zu rose homepage"""
